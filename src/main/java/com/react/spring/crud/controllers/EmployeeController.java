@@ -34,7 +34,7 @@ public class EmployeeController {
 
 	@PostMapping(path = "/createEmploye")
 	public boolean createEmploye(@RequestBody Employee employee) {
-		System.out.println(employee.getFirstName());
+
 		Employee emp = employeeRepo.save(employee);
 		if (emp instanceof Employee) {
 			return true;
@@ -54,9 +54,10 @@ public class EmployeeController {
 	public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee) {
 		Employee emp = employeeRepo.findById(employee.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("employe not found" + employee.getId()));
-		emp.setFirstName(employee.getFirstName());
-		emp.setLastName(employee.getLastName());
+		emp.setName(employee.getName());
+		emp.setAddress(employee.getAddress());
 		emp.setEmail(employee.getEmail());
+		emp.setPhone(employee.getPhone());
 		employeeRepo.save(emp);
 		return ResponseEntity.ok(emp);
 	}
